@@ -1,8 +1,0 @@
-Django>=4.2,<5
-djangorestframework>=3.14,<4
-Pillow>=9.0               # For image handling
-mysqlclient>=2.1          # If using MySQL, skip if using SQLite
-psycopg2-binary>=2.9     # If using PostgreSQL, choose one
-gunicorn>=20.1.0          # For production deployment (optional)
-requests>=2.28            # Common HTTP library (optional)
-whitenoise>=6.4           # For serving static files in production
