@@ -1,0 +1,219 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Arsalan-Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+
+
+
+
+
+</head>
+<body>
+<nav>
+  <div class="nav-container">
+    <div class="logo">Portfolio</div>
+
+    <!-- Hamburger Button -->
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      &#9776;
+    </button>
+
+    <!-- Navigation Menu -->
+    <div class="nav-menu" id="navMenu">
+      <a href="#home">Home</a>
+      <a href="#skills">Skills</a>
+      <a href="#about">About</a>
+      <a href="#experience-education">Experience Education</a>
+      <a href="#projects">Projects</a>
+    </div>
+
+    <!-- Social Icons -->
+    <div class="nav-social">
+      <a href="https://www.linkedin.com/in/khaja-mubashir-arsalan" class="social-link in">in</a>
+      <a href="https://github.com/Encrypted10" class="social-link be">Git-Hub</a>
+      <!-- <a href="#" class="social-link tw">&#xf099;</a> -->
+    </div>
+  </div>
+</nav>
+
+<!-- Sections with matching IDs -->
+
+
+<section id="home">
+  <div class="container">
+    <div class="text-section">
+      <h1>{{ profile.name }}</h1>
+      <p>{{ profile.description }}</p>
+      <a href="{{ profile.cta_link|default:'#about' }}" class="cta-btn">{{ profile.cta_text }}</a>
+    </div>
+    <div class="profile-image">
+      <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}">
+    </div>
+  </div>
+  <div class="clients-section">
+    <p>INTERNSHIPS WITH</p>
+    <div class="clients-list">
+      {% for internship in internships %}
+      <div class="client-card">
+        <img src="{{ internship.logo.url }}" alt="{{ internship.name }}">
+        {{ internship.name }}
+      </div>
+      {% empty %}
+      <p>No internships found.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+  <section id="skills">
+  <div class="skills-section" id="skills">
+    <h2>MY SKILLS</h2>
+    <div class="skills-grid">
+      {% for skill in skills %}
+      <div class="skill">
+        <svg class="progress-ring" viewBox="0 0 140 140">
+          <circle class="progress-ring__bg" stroke="#333" stroke-width="8" fill="transparent" r="60" cx="70" cy="70" />
+          <circle class="progress-ring__circle" stroke="#4fcc2a" stroke-width="8" fill="transparent" r="60" cx="70"
+            cy="70" data-percent="{{ skill.percentage }}" />
+        </svg>
+        <div class="skill-label">{{ skill.name }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+
+
+
+
+
+   
+  </section>
+  
+  <section id="about">
+   <div class="about-section" id="about">
+  <h2>ABOUT ME</h2>
+
+  {% if about %}
+  <div class="about-container">
+    <div class="about-image">
+      {% if about.image %}
+        <img src="{{ about.image.url }}" alt="About Image">
+      {% else %}
+        <img src="{% static 'images/me.jpeg' %}" alt="Default Image">
+      {% endif %}
+    </div>
+
+    <div class="about-text">
+      <p>{{ about.content }}</p>
+    </div>
+  </div>
+  {% else %}
+    <p class="about-text" style="color:#aaa;">No about content uploaded yet.</p>
+  {% endif %}
+</div>
+
+
+
+  </section>
+  
+<section class="experience-education" id="experience-education">
+  <h2>EXPERIENCE &amp; EDUCATION</h2>
+  <div class="timeline-container">
+    <div class="timeline-column left">
+      {% for item in education %}
+      <div class="timeline-item">
+        <div class="timeline-icon">
+        {% if item.icon_image %}
+        <img src="{{ item.icon_image.url }}" alt="Icon" />
+        {% else %}
+        <img src="{% static 'images/ey.png' %}" alt="Default Icon" />
+        {% endif %}
+
+        </div>
+        <div class="timeline-content">
+          <h3>
+            {{ item.title }}
+            {% if item.start_year and item.end_year %}
+            ({{ item.start_year }} – {{ item.end_year }})
+            {% endif %}
+            {% if item.organization %}
+            <p><strong>{{ item.organization }}</strong></p>
+            {% endif %}
+          </h3>
+          <p>{{ item.description }}</p>
+        </div>
+      </div>
+      {% empty %}
+      <p>No education details available.</p>
+      {% endfor %}
+    </div>
+    <div class="timeline-column right">
+      {% for item in experience %}
+      <div class="timeline-item">
+        <div class="timeline-icon">
+          {% if item.icon_image %}
+          <img src="{{ item.icon_image.url }}" alt="Icon" />
+          {% else %}
+          <img src="{% static 'images/ey.png' %}" alt="Default Icon" />
+          {% endif %}
+
+        </div>
+        <div class="timeline-content">
+          <h3>
+            {{ item.title }}
+            {% if item.start_year and item.end_year %}
+            ({{ item.start_year }} – {{ item.end_year }})
+            {% endif %}
+            {% if item.organization %}
+            <p><strong>{{ item.organization }}</strong></p>
+            {% endif %}
+          </h3>
+          <p>{{ item.description }}</p>
+        </div>
+      </div>
+      {% empty %}
+      <p>No experience details available.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+  <section id="projects">
+    <h2>My Projects</h2>
+    <div class="project-list">
+      {% for project in projects %}
+      <div class="project-card">
+        <a href="{{ project.link }}" target="_blank" rel="noopener noreferrer">
+          <img src="{{ project.image.url }}" alt="{{ project.title }}">
+        </a>
+        <h3>{{ project.title }}</h3>
+        <p>{{ project.description }}</p>
+      </div>
+      {% empty %}
+      <p>No projects available.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+</body>
+<script src="static/js/index.js"></script>
+</html>
