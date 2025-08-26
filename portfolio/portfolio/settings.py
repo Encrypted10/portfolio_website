@@ -31,6 +31,10 @@ ALLOWED_HOSTS = [
     '127.0.0.1'
 ]
 
+# Prevent Django from asking for confirmation when collecting static files
+if os.environ.get('RENDER'):
+    COLLECTSTATIC = True
+
 
 
 # Application definition
