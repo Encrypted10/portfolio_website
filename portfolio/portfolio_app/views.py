@@ -35,7 +35,7 @@ def portfolio(request):
         "internships": internships,
         "projects": projects,
     }
-    return render(request, "index.html", context)
+    return render(request, "portfolio_app/index.html", context)
 
 
 

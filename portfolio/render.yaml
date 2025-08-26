@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: django-portfolio
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn portfolio.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: portfolio.settings
+      - key: PYTHON_VERSION
+        value: 3.12
