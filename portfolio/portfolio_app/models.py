@@ -85,3 +85,12 @@ class Project(models.Model):
 
 
     
+class Certificate(models.Model):
+    title = models.CharField(max_length=255)  # Certificate name [web:5]
+    issuer = models.CharField(max_length=255)  # Organization or authority [web:5]
+    issue_date = models.DateField()  # Date issued [web:5]
+
+    certificate_image = models.ImageField(upload_to='certificates/', blank=True, null=True)  # Optional image file [web:5]
+
+    def __str__(self):
+        return f"{self.title} ({self.issuer})"

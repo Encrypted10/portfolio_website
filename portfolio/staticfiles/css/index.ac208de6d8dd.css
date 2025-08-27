@@ -141,7 +141,6 @@ nav {
 /* Profile Image */
 .profile-image {
   order: 2;
-  /* Image */
   width: 320px;
   height: 320px;
   border-radius: 50%;
@@ -150,6 +149,16 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Add a white border */
+  border: 2px solid #fff;
+  /* Add a subtle outer glow */
+  box-shadow: 0 0 18px 0 #39ff14, 0 2px 28px rgba(0, 0, 0, 0.45);
+  /* Optional: Animate shadow on hover */
+  transition: box-shadow 0.3s;
+}
+
+.profile-image:hover {
+  box-shadow: 0 0 48px 4px #39ff14, 0 2px 32px rgba(0, 0, 0, 0.65);
 }
 
 .profile-image img {
@@ -192,6 +201,10 @@ nav {
   box-shadow: 0 1px 8px #0002;
   letter-spacing: 2px;
   min-width: 130px;
+}
+.clients-list :hover{
+  transform: scale(1.03);
+  cursor: pointer;
 }
 
 .client-card img {
@@ -411,7 +424,7 @@ nav {
 
 @media (max-width: 600px) {
   .skills-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: (2,1fr);
     gap: 12px;
   }
 
@@ -425,7 +438,6 @@ nav {
     min-height: 60px;
   }
 }
-
 
 
 /* ------- About ------- */
@@ -727,6 +739,7 @@ nav {
 .project-card p {
   font-size: 1rem;
   line-height: 1.4;
+  background: #222;
   color: #ccc;
 }
 .project-list:empty {
@@ -832,6 +845,118 @@ textarea:focus {
 }
 
 
+/* ---------------- certificates --------------------- */
+
+
+.certificate-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  /* Match max-width with projects for alignment */
+  margin: 0 auto;
+  /* Center horizontally */
+  padding: 40px 20px;
+  /* Matches #projects padding top & bottom and sides */
+  text-align: center;
+  /* Optional, if you want same text alignment */
+  color: #000;
+  /* Adjust as needed */
+}
+
+.certificate-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  /* Slightly increased padding like .project-card */
+  cursor: default;
+}
+
+.certificate-card img.card-image {
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  object-fit: cover;
+  margin-bottom: 15px;
+  /* Match project card image margin */
+}
+
+.certificate-details h3 {
+  margin: 0 0 10px 0;
+  /* Match project card title margin */
+  font-size: 1.1rem;
+}
+
+.certificate-details p {
+  margin: 4px 0;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+/* ----------- model for big screen ----------- */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 90vh;
+  border-radius: 8px;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+}
+
+
+/* Responsive tweaks matching #projects approach */
+@media (max-width: 900px) {
+  .certificate-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 600px;
+    padding: 30px 20px;
+  }
+
+  .certificate-card {
+    padding: 15px;
+  }
+
+  .certificate-details h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  .certificate-details p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .certificate-grid {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    padding: 20px 10px;
+  }
+}
 
 
 
@@ -855,3 +980,85 @@ textarea:focus {
 
 
 
+
+
+
+.certificate-slider-wrapper {
+  max-width: 1185px;
+  margin: auto auto;
+  overflow: hidden;
+}
+
+.certificate-grid {
+  display: flex;
+  gap: 20px;
+  padding: 0 10px;
+  transition: transform 0.5s ease;
+  flex-wrap: nowrap;
+  /* nowrap for slider, wrap if grid */
+}
+
+.certificate-card {
+  background: #222;
+  border-radius: 20px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.13);
+  padding: 28px 16px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  flex: 0 0 calc((100% / 3) - 13.33px);
+  /* 3 cards */
+  max-width: 340px;
+  min-height: 300px;
+}
+
+.card-image {
+  width: 100%;
+  height: 210px;
+  border-radius: 14px;
+  object-fit: cover;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.certificate-details h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-transform: capitalize;
+  color: white;
+}
+
+.certificate-details p {
+  margin: 6px 0;
+  font-size: 1rem;
+  background: #222;
+  color: #ccc;
+}
+
+#certificates h2{
+  text-align: center;
+
+}
+
+/* 2 cards for 600px-900px */
+@media (max-width: 900px) and (min-width: 601px) {
+  .certificate-card {
+    flex: 0 0 calc((100% / 2) - 10px);
+    max-width: 480px;
+  }
+}
+
+/* 1 card for <=600px */
+@media (max-width: 600px) {
+  .certificate-card {
+    flex: 0 0 100%;
+    max-width: 90%;
+    width: 100%;
+    justify-content: center;
+  }
+}

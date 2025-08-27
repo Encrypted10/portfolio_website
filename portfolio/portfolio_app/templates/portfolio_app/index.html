@@ -34,6 +34,7 @@
       <a href="#about">About</a>
       <a href="#experience-education">Experience Education</a>
       <a href="#projects">Projects</a>
+      <a href="#certificates">Certificates</a>
     </div>
 
     <!-- Social Icons -->
@@ -91,13 +92,6 @@
       {% endfor %}
     </div>
   </div>
-
-
-
-
-
-
-   
   </section>
   
   <section id="about">
@@ -205,6 +199,37 @@
       {% endfor %}
     </div>
   </section>
+
+
+<section id="certificates">
+  <h2>Certificates</h2>
+  <div class="certificate-slider-wrapper">
+    <div class="certificate-grid">
+      {% for certificate in certificates %}
+      <div class="certificate-card">
+        {% if certificate.certificate_image %}
+        <img src="{{ certificate.certificate_image.url }}" alt="Certificate Image" class="card-image clickable"
+          onclick="openModal(this)" />
+        {% endif %}
+        <div class="certificate-details">
+          <h3>{{ certificate.title }}</h3>
+          <p><strong>Issuer:</strong> {{ certificate.issuer }}</p>
+          <p><strong>Issued on:</strong> {{ certificate.issue_date }}</p>
+        </div>
+      </div>
+      {% empty %}
+      <p>No certificates to display.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Modal for enlarged image -->
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="close" onclick="closeModal(event)">&times;</span>
+    <img class="modal-content" id="modalImage" />
+  </div>
+</section>
+
 
 
 

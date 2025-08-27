@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Skill,About,TimelineEntry,Profile,Internship,Project
+from .models import Skill,About,TimelineEntry,Profile,Internship,Project,Certificate
 from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
@@ -25,6 +25,7 @@ def portfolio(request):
     profile = Profile.objects.first()
     internships = Internship.objects.all()
     projects = Project.objects.all()
+    certificates = Certificate.objects.all()
 
     context = {
         "skills": skills,
@@ -34,6 +35,7 @@ def portfolio(request):
         "profile": profile,
         "internships": internships,
         "projects": projects,
+        "certificates" : certificates,
     }
     return render(request, "portfolio_app/index.html", context)
 

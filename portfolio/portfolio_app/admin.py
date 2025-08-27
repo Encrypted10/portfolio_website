@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Skill,About,TimelineEntry,Profile,Internship,Project
+from .models import Skill,About,TimelineEntry,Profile,Internship,Project,Certificate
 
 
 @admin.register(Skill)
@@ -40,3 +40,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 
+@admin.register(Certificate)
+class CertificateAdmin(admin.ModelAdmin):
+    list_display = ('title', 'issuer', 'issue_date')  # Show these columns in admin list view [1][2]
+    search_fields = ('title', 'issuer')              # Enable search for these fields [2]
