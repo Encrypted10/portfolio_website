@@ -108,13 +108,9 @@ function slideNext() {
 
 function startAutoplay() {
   clearInterval(autoplayInterval);
-  if (window.innerWidth > 900) {
-    autoplayInterval = setInterval(slideNext, 3000);
-  } else {
-    slider.style.transition = 'none';
-    slider.style.transform = 'translateX(0)';
-  }
+  autoplayInterval = setInterval(slideNext, 3000);
 }
+
 
 window.addEventListener('resize', () => {
   slider.style.transition = 'none';
