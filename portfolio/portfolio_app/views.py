@@ -4,6 +4,9 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.http import HttpResponse,Http404
+from django.conf import settings
+import os
 
 # Create your views here.
 # def home(request):
@@ -41,3 +44,9 @@ def portfolio(request):
 
 
 
+def google_verification(request):
+    file_path = os.path.join(settings.BASE_DIR, 'google906ecfcb3556e71a.html')
+    if not os.path.exists(file_path):
+        raise Http404("Verification file not found.")
+    with open(file_path, 'r') as file:
+        return HttpResponse(file.read(), content_type="text/html")
