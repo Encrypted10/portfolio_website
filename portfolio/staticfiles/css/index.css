@@ -87,6 +87,35 @@ nav {
   cursor: pointer;
 }
 
+
+/* ------------progress line ---------------- */
+
+#scrollProgressContainer {
+  position: fixed;
+  top: 56px;
+  /* adjust this to be just below your navbar height */
+  left: 0;
+  width: 100%;
+  height: 4px;
+  /* background-color: #ddd; */
+  /* background for the progress container */
+  z-index: 9999;
+}
+
+#scrollProgressBar {
+  height: 4px;
+  width: 0;
+  background-color: #63eb45;
+  /* color of the progress bar */
+  transition: width 0.25s ease-out;
+}
+@media (max-width: 999px) {
+  #scrollProgressContainer {
+    display: none;
+  }
+}
+
+
 /* ---------------- HERO SECTION ---------------- */
 .container {
   display: flex;
@@ -336,7 +365,7 @@ nav {
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(6, minmax(120px, 1fr));
   gap: 18px;
   justify-items: center;
   align-items: center;
@@ -410,10 +439,41 @@ nav {
   z-index: 2;
 }
 
+.skill-circle {
+  position: relative;
+  width: 100px;
+  /* or your current width */
+  height: 100px;
+  /* or your current height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* ensures text wraps & centers */
+  overflow: hidden;
+  /* hide anything outside circle */
+  border-radius: 50%;
+}
+
+.skill-circle span {
+  display: block;
+  font-size: 0.98rem;
+  /* reduce to fit */
+  word-break: break-word;
+  /* wrap on word boundaries */
+  max-width: 70px;
+  /* ensures width doesn't exceed circle inside */
+  line-height: 1.1;
+  padding: 0 4px;
+  color: #fff;
+}
+
+
+
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 900px) {
   .skills-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
   }
 
@@ -424,7 +484,7 @@ nav {
 
 @media (max-width: 600px) {
   .skills-grid {
-    grid-template-columns: (2,1fr);
+    grid-template-columns: repeat(2,1fr);
     gap: 12px;
   }
 
@@ -631,7 +691,7 @@ nav {
   }
 
   .timeline-column {
-    margin-bottom: -5vh;
+    margin-bottom: 10vh;
     /* Remove extra bottom space */
   }
 }
@@ -784,63 +844,6 @@ nav {
 
   .project-card p {
     font-size: 0.95rem;
-  }
-}
-
-
-
-/* -------------- get in touch --------------------- */
-
-#contact {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  color: #fff;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  margin-bottom: 6px;
-  font-weight: 600;
-}
-
-input,
-textarea {
-  margin-bottom: 18px;
-  padding: 10px;
-  border-radius: 6px;
-  border: none;
-  font-size: 1rem;
-}
-
-input:focus,
-textarea:focus {
-  outline: 2px solid #4fcc2a;
-}
-
-.btn-submit {
-  padding: 12px 20px;
-  font-size: 1.1rem;
-  background-color: #4fcc2a;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  color: #000;
-  transition: background-color 0.3s ease;
-}
-
-.btn-submit:hover {
-  background-color: #3bb01d;
-}
-
-@media (max-width: 480px) {
-  #contact {
-    padding: 20px 10px;
   }
 }
 
@@ -1060,5 +1063,76 @@ textarea:focus {
     max-width: 90%;
     width: 100%;
     justify-content: center;
+  }
+}
+
+
+
+/* -------------- FOOTER ------------------ */
+
+footer {
+  width: 100%;
+  /* full viewport width */
+  background-color: #222;
+  color: #ccc;
+  padding: 40px 20px 20px 20px;
+  box-sizing: border-box;
+  position: relative;
+  margin-top: 7vh;
+  left: 0;
+  right: 0;
+}
+
+.footer-content {
+  max-width: 1100px;
+  /* constraint for center content */
+  margin: 0 auto;
+  /* center horizontally */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.footer-content>div {
+  /* These inline styles can be moved here for consistency */
+  flex: 1 1 200px;
+  min-width: 150px;
+}
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 20px auto 0 auto;
+  text-align: center;
+  color: #555;
+  font-size: 0.85rem;
+  padding: 0 20px;
+}
+
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    /* Remove gap between flex children */
+    padding: 0 10px;
+  }
+
+  .footer-content>div {
+    max-width: 100%;
+    margin-bottom: 5px;
+    /* Reduce space between sections */
+    min-width: unset;
+    padding: 0;
+  }
+
+  .footer-content h3 {
+    margin-bottom: 8px;
+  }
+
+  .footer-bottom {
+    padding: 0 10px;
+    margin-top: 10px;
   }
 }
