@@ -143,7 +143,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
-
 # import os
 
 # # Static files (CSS, JS, Images)

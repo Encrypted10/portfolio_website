@@ -8,6 +8,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+
+// progress bar below nav 
+window.addEventListener('scroll', function() {
+  const scrollProgressBar = document.getElementById('scrollProgressBar');
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = (scrollTop / docHeight) * 100;
+  scrollProgressBar.style.width = scrollPercent + "%";
+});
+
 //  skills
 document.addEventListener("DOMContentLoaded", () => {
   const circles = document.querySelectorAll(".progress-ring__circle");
@@ -139,3 +149,25 @@ if (sliderWrapper) {
   // fallback - start autoplay immediately if no wrapper found
   startAutoplay();
 }
+
+
+
+// for internship on big screen
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+
+    document.querySelectorAll('.link-image-trigger').forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const imageUrl = this.getAttribute('data-image-url');
+            modalImage.src = imageUrl;
+            modal.style.display = 'flex';
+        });
+    });
+
+    modal.addEventListener('click', function() {
+        modal.style.display = 'none';
+        modalImage.src = '';
+    });
+});

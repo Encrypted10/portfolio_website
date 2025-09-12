@@ -30,8 +30,8 @@
     <!-- Navigation Menu -->
     <div class="nav-menu" id="navMenu">
       <a href="#home">Home</a>
-      <a href="#skills">Skills</a>
       <a href="#about">About</a>
+      <a href="#skills">Skills</a>
       <a href="#experience-education">Experience Education</a>
       <a href="#projects">Projects</a>
       <a href="#certificates">Certificates</a>
@@ -45,6 +45,10 @@
     </div>
   </div>
 </nav>
+<div id="scrollProgressContainer">
+  <div id="scrollProgressBar"></div>
+</div>
+
 
 <!-- Sections with matching IDs -->
 
@@ -75,6 +79,32 @@
   </div>
 </section>
 
+  <section id="about">
+    <div class="about-section" id="about">
+      <h2>ABOUT ME</h2>
+  
+      {% if about %}
+      <div class="about-container">
+        <div class="about-image">
+          {% if about.image %}
+          <img src="{{ about.image.url }}" alt="About Image">
+          {% else %}
+          <img src="{% static 'images/me.jpeg' %}" alt="Default Image">
+          {% endif %}
+        </div>
+  
+        <div class="about-text">
+          <p>{{ about.content }}</p>
+        </div>
+      </div>
+      {% else %}
+      <p class="about-text" style="color:#aaa;">No about content uploaded yet.</p>
+      {% endif %}
+    </div>
+  
+  
+  
+  </section>
 
   <section id="skills">
   <div class="skills-section" id="skills">
@@ -94,32 +124,6 @@
   </div>
   </section>
   
-  <section id="about">
-   <div class="about-section" id="about">
-  <h2>ABOUT ME</h2>
-
-  {% if about %}
-  <div class="about-container">
-    <div class="about-image">
-      {% if about.image %}
-        <img src="{{ about.image.url }}" alt="About Image">
-      {% else %}
-        <img src="{% static 'images/me.jpeg' %}" alt="Default Image">
-      {% endif %}
-    </div>
-
-    <div class="about-text">
-      <p>{{ about.content }}</p>
-    </div>
-  </div>
-  {% else %}
-    <p class="about-text" style="color:#aaa;">No about content uploaded yet.</p>
-  {% endif %}
-</div>
-
-
-
-  </section>
   
 <section class="experience-education" id="experience-education">
   <h2>EXPERIENCE &amp; EDUCATION</h2>
@@ -138,11 +142,16 @@
         <div class="timeline-content">
           <h3>
             {{ item.title }}
-            {% if item.start_year and item.end_year %}
-            ({{ item.start_year }} – {{ item.end_year }})
+            {% if item.start_year %}
+            (
+            {{ item.start_year }}
+            {% if item.end_year %}
+            – {{ item.end_year }}
+            {% endif %}
+            )
             {% endif %}
             {% if item.organization %}
-            <p><strong>{{ item.organization }}</strong></p>
+            <h4 id="organization"><strong>{{ item.organization }}</strong></h4>
             {% endif %}
           </h3>
           <p>{{ item.description }}</p>
@@ -166,11 +175,22 @@
         <div class="timeline-content">
           <h3>
             {{ item.title }}
-            {% if item.start_year and item.end_year %}
-            ({{ item.start_year }} – {{ item.end_year }})
-            {% endif %}
+           {% if item.start_year %}
+  (
+  {{ item.start_year }}
+  {% if item.end_year %}
+    – {{ item.end_year }}
+  {% endif %}
+  )
+{% endif %}
+
             {% if item.organization %}
-            <p><strong>{{ item.organization }}</strong></p>
+            <p>
+              <strong>{{ item.organization }}</strong>
+              {% if item.link and item.link_image %}
+              | <a href="#" class="link-image-trigger" data-image-url="{{ item.link_image.url }}">Certificate</a>
+              {% endif %}
+            </p>
             {% endif %}
           </h3>
           <p>{{ item.description }}</p>
@@ -179,6 +199,10 @@
       {% empty %}
       <p>No experience details available.</p>
       {% endfor %}
+      <div id="image-modal"
+        style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background-color:rgba(0,0,0,0.85); justify-content:center; align-items:center; z-index:10000;">
+        <img id="modal-image" src="" alt="Link image" style="max-width:90vw; max-height:90vh;" />
+      </div>
     </div>
   </div>
 </section>
@@ -232,12 +256,52 @@
 
 
 
+ <footer>
+  <div class="footer-content">
 
+    <div style="flex:1 1 200px; min-width:200px;">
+      <h3 style="color:#fff; margin-bottom: 15px;">About Me</h3>
+      <p style="line-height:1.6; font-size:0.95rem;">
+        Passionate Data Scientist and Web Developer. Dedicated to building impactful projects and learning new
+        technologies.
+      </p>
+    </div>
 
+    <div style="flex:1 1 150px; min-width:150px;">
+      <h3 style="color:#fff; margin-bottom: 15px;">Quick Links</h3>
+      <ul style="list-style:none; padding:0; font-size:0.95rem;">
+        <li><a href="#home" style="color:#ccc; text-decoration:none;">Home</a></li>
+        <li><a href="#skills" style="color:#ccc; text-decoration:none;">Skills</a></li>
+        <li><a href="#experience-education" style="color:#ccc; text-decoration:none;">Experience & Education</a></li>
+        <li><a href="#projects" style="color:#ccc; text-decoration:none;">Projects</a></li>
+      </ul>
+    </div>
 
+    <div style="flex:1 1 200px; min-width:200px;">
+      <h3 style="color:#fff; margin-bottom: 15px;">Contact</h3>
+      <p style="font-size:0.95rem; line-height:1.6;">
+        Email: <a href="mailto:kmarsalan124@gmail.com" style="color:#00f6ff;">kmarsalan124@gmail.com</a><br />
+        Phone: +91 9515855961<br />
+        Location: Hyderabad, India
+      </p>
+    </div>
 
+    <div style="flex:1 1 150px; min-width:150px;">
+      <h3 style="color:#fff; margin-bottom: 15px;">Follow Me</h3>
+      <div style="font-size:1.2rem;">
+        <a href="https://linkedin.com/in/khaja-mubashir-arsalan" target="_blank"
+          style="color:#0e76a8; margin-right:15px; text-decoration:none;">LinkedIn</a>
+        <a href="https://github.com/Encrypted10" target="_blank"
+          style="color:#fff; margin-right:15px; text-decoration:none;">GitHub</a>
+      </div>
+    </div>
 
+  </div>
 
+  <div class="footer-bottom">
+    &copy; 2025 Khaja Mubashir Arsalan. All rights reserved.
+  </div>
+</footer>
 
 </body>
 <script src="static/js/index.js"></script>

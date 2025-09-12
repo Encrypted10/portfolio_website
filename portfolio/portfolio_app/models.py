@@ -6,9 +6,10 @@ class Skill(models.Model):
     name = models.CharField(max_length=100)
     percentage = models.PositiveIntegerField(help_text="Skill percentage (0 to 100)")
     color = models.CharField(max_length=7, default="#4fcc2a", help_text="Color for progress circle")
+    display_order = models.PositiveIntegerField(default=0)
 
     class Meta:
-        ordering = ['-percentage']  # Highest skill first
+        ordering = ['display_order']  # Highest skill first
         verbose_name = "Skill"
         verbose_name_plural = "Skills"
 
@@ -43,12 +44,19 @@ class TimelineEntry(models.Model):
     end_year = models.PositiveIntegerField(blank=True, null=True)
     description = models.TextField(blank=True)
     icon_image = models.ImageField(upload_to='timeline_icons/', blank=True, null=True)
+    
+    # New fields:
+    link = models.URLField(blank=True, null=True)  # external or internal URL
+    link_image = models.ImageField(upload_to='timeline_link_images/', blank=True, null=True)  # Image to show when link clicked
 
     class Meta:
         ordering = ["-start_year", "-end_year"]
 
     def __str__(self):
         return f"{self.get_entry_type_display()}: {self.title}"
+    
+
+
 
 class Profile(models.Model):
     name = models.CharField(max_length=255)
